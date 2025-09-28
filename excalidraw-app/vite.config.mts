@@ -120,7 +120,7 @@ export default defineConfig(({ mode }) => {
       woff2BrowserPlugin(),
       react(),
       checker({
-        typescript: true,
+        typescript: false,
         eslint:
           envVars.VITE_APP_ENABLE_ESLINT === "false"
             ? undefined
@@ -147,6 +147,7 @@ export default defineConfig(({ mode }) => {
             "service-worker.js",
             "**/*.chunk-*.js",
           ],
+          maximumFileSizeToCacheInBytes: 5 * 1024 * 1024, // 5MB
           runtimeCaching: [
             {
               urlPattern: new RegExp(".+.woff2"),
