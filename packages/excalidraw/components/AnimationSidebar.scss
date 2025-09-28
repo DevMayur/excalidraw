@@ -1,0 +1,68 @@
+.animation-sidebar {
+  .sidebar-tab-trigger {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: all 0.2s ease;
+
+    .tab-icon {
+      font-size: 1.2rem;
+      line-height: 1;
+    }
+
+    .tab-label {
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    &[data-state="active"] {
+      background: var(--color-primary-light);
+      color: var(--color-primary-darker);
+    }
+
+    &:hover:not([data-state="active"]) {
+      background: var(--color-surface-high);
+    }
+  }
+
+  .sidebar-tab-content {
+    height: 100%;
+    overflow: hidden;
+  }
+}
+
+// Animation-specific sidebar styling
+.animation-sidebar {
+  .sidebar-header {
+    border-bottom: 1px solid var(--color-border);
+    padding: 0.5rem;
+  }
+
+  .sidebar-tab-triggers {
+    display: flex;
+    gap: 0.25rem;
+  }
+
+  .sidebar-tab-trigger {
+    flex: 1;
+    justify-content: center;
+    min-height: 40px;
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .animation-sidebar {
+    .sidebar-tab-trigger {
+      .tab-label {
+        display: none;
+      }
+      
+      .tab-icon {
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

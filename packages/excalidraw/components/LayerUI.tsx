@@ -4,6 +4,7 @@ import React from "react";
 import {
   CLASSES,
   DEFAULT_SIDEBAR,
+  ELEMENT_PROPERTIES_TAB,
   MQ_MIN_WIDTH_DESKTOP,
   TOOL_TYPE,
   arrayToMap,
@@ -45,6 +46,7 @@ import { PenModeButton } from "./PenModeButton";
 import Footer from "./footer/Footer";
 import { isSidebarDockedAtom } from "./Sidebar/Sidebar";
 import MainMenu from "./main-menu/MainMenu";
+import DropdownMenuItem from "./dropdownMenu/DropdownMenuItem";
 import { ActiveConfirmDialog } from "./ActiveConfirmDialog";
 import { useDevice } from "./App";
 import { OverwriteConfirmDialog } from "./OverwriteConfirm/OverwriteConfirm";
@@ -56,6 +58,8 @@ import ElementLinkDialog from "./ElementLinkDialog";
 import { ErrorDialog } from "./ErrorDialog";
 import { EyeDropper, activeEyeDropperAtom } from "./EyeDropper";
 import { FixedSideContainer } from "./FixedSideContainer";
+import { AnimationBottomPanel } from "./AnimationBottomPanel";
+import { AnimationProvider } from "./AnimationManager";
 import { HandButton } from "./HandButton";
 import { HelpDialog } from "./HelpDialog";
 import { HintViewer } from "./HintViewer";
@@ -117,6 +121,16 @@ const DefaultMainMenu: React.FC<{
       )}
       <MainMenu.DefaultItems.SearchMenu />
       <MainMenu.DefaultItems.Help />
+      <DropdownMenuItem
+        onSelect={() => {
+          console.log("🎬 Direct Timeline clicked!");
+          alert("Direct Timeline Test!");
+        }}
+        data-testid="direct-animation-timeline-button"
+      >
+        🎬 Direct Timeline
+      </DropdownMenuItem>
+      <MainMenu.DefaultItems.AnimationTimeline />
       <MainMenu.DefaultItems.ClearCanvas />
       <MainMenu.Separator />
       <MainMenu.Group title="Excalidraw links">
@@ -423,6 +437,36 @@ const LayerUI = ({
                 appState.openSidebar?.name !== DEFAULT_SIDEBAR.name) && (
                 <tunnels.DefaultSidebarTriggerTunnel.Out />
               )}
+            {/* Temporary test button for properties panel */}
+            {!appState.viewModeEnabled && (
+              <button
+                className="ToolIcon ToolIcon_type_button"
+                onClick={() => {
+                  setAppState({ 
+                    openSidebar: { 
+                      name: DEFAULT_SIDEBAR.name, 
+                      tab: ELEMENT_PROPERTIES_TAB 
+                    } 
+                  });
+                }}
+                title="Open Properties Panel (Test)"
+                style={{
+                  position: 'absolute',
+                  top: '60px',
+                  right: '10px',
+                  zIndex: 1000,
+                  backgroundColor: '#ff6b6b',
+                  color: 'white',
+                  border: 'none',
+                  borderRadius: '4px',
+                  padding: '8px 12px',
+                  fontSize: '12px',
+                  cursor: 'pointer'
+                }}
+              >
+                ⚙️ Props
+              </button>
+            )}
             {shouldShowStats && (
               <Stats
                 app={app}
@@ -637,7 +681,20 @@ const LayerUI = ({
     <UIAppStateContext.Provider value={appState}>
       <TunnelsJotaiProvider>
         <TunnelsContext.Provider value={tunnels}>
-          {layerUIJSX}
+          <AnimationProvider>
+            {layerUIJSX}
+            <AnimationBottomPanel
+              isVisible={appState.openDialog?.name === "animation"}
+              onToggle={() => {
+                setAppState((prevState) => ({
+                  ...prevState,
+                  openDialog: prevState.openDialog?.name === "animation"
+                    ? null
+                    : { name: "animation" },
+                }));
+              }}
+            />
+          </AnimationProvider>
         </TunnelsContext.Provider>
       </TunnelsJotaiProvider>
     </UIAppStateContext.Provider>

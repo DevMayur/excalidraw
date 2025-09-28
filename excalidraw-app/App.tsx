@@ -36,7 +36,6 @@ import { loadFromBlob } from "@excalidraw/excalidraw/data/blob";
 import { useCallbackRefState } from "@excalidraw/excalidraw/hooks/useCallbackRefState";
 import { t } from "@excalidraw/excalidraw/i18n";
 import { AuthProvider } from "./contexts/AuthContext";
-import { AuthDebug } from "./components/AuthDebug";
 
 import {
   GithubIcon,
@@ -1117,7 +1116,6 @@ const ExcalidrawApp = () => {
       <AuthProvider>
         <Provider store={appJotaiStore}>
           <ExcalidrawWrapper />
-          <AuthDebug />
         </Provider>
       </AuthProvider>
     </TopErrorBoundary>

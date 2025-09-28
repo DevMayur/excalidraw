@@ -4,6 +4,7 @@ import {
   CANVAS_SEARCH_TAB,
   DEFAULT_SIDEBAR,
   LIBRARY_SIDEBAR_TAB,
+  ELEMENT_PROPERTIES_TAB,
   composeEventHandlers,
 } from "@excalidraw/common";
 
@@ -17,9 +18,10 @@ import "../components/dropdownMenu/DropdownMenu.scss";
 import { useExcalidrawSetAppState } from "./App";
 import { LibraryMenu } from "./LibraryMenu";
 import { SearchMenu } from "./SearchMenu";
+import { ElementPropertyPanel } from "./ElementPropertyPanel";
 import { Sidebar } from "./Sidebar/Sidebar";
 import { withInternalFallback } from "./hoc/withInternalFallback";
-import { LibraryIcon, searchIcon } from "./icons";
+import { LibraryIcon, searchIcon, PropertiesIcon } from "./icons";
 
 import type { SidebarProps, SidebarTriggerProps } from "./Sidebar/common";
 
@@ -74,7 +76,7 @@ export const DefaultSidebar = Object.assign(
 
       const { DefaultSidebarTabTriggersTunnel } = useTunnels();
 
-      const isForceDocked = appState.openSidebar?.tab === CANVAS_SEARCH_TAB;
+      const isForceDocked = appState.openSidebar?.tab === CANVAS_SEARCH_TAB || appState.openSidebar?.tab === ELEMENT_PROPERTIES_TAB;
 
       return (
         <Sidebar
@@ -105,6 +107,9 @@ export const DefaultSidebar = Object.assign(
                 <Sidebar.TabTrigger tab={LIBRARY_SIDEBAR_TAB}>
                   {LibraryIcon}
                 </Sidebar.TabTrigger>
+                <Sidebar.TabTrigger tab={ELEMENT_PROPERTIES_TAB}>
+                  {PropertiesIcon}
+                </Sidebar.TabTrigger>
                 <DefaultSidebarTabTriggersTunnel.Out />
               </Sidebar.TabTriggers>
             </Sidebar.Header>
@@ -113,6 +118,9 @@ export const DefaultSidebar = Object.assign(
             </Sidebar.Tab>
             <Sidebar.Tab tab={CANVAS_SEARCH_TAB}>
               <SearchMenu />
+            </Sidebar.Tab>
+            <Sidebar.Tab tab={ELEMENT_PROPERTIES_TAB}>
+              <ElementPropertyPanel />
             </Sidebar.Tab>
             {children}
           </Sidebar.Tabs>

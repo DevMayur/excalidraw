@@ -9,7 +9,7 @@ import React, {
   useCallback,
 } from "react";
 
-import { EVENT, isDevEnv, KEYS, updateObject } from "@excalidraw/common";
+import { EVENT, ELEMENT_PROPERTIES_TAB, isDevEnv, KEYS, updateObject } from "@excalidraw/common";
 
 import { useUIAppState } from "../../context/ui-appState";
 import { atom, useSetAtom } from "../../editor-jotai";
@@ -109,6 +109,11 @@ export const SidebarInner = forwardRef(
           // If click on the library icon, do nothing so that LibraryButton
           // can toggle library menu
           if ((event.target as Element).closest(".sidebar-trigger")) {
+            return;
+          }
+          // Don't close if properties tab is active - it should stay open for element editing
+          const appState = useUIAppState();
+          if (appState.openSidebar?.tab === ELEMENT_PROPERTIES_TAB) {
             return;
           }
           if (!docked || !device.editor.canFitSidebar) {

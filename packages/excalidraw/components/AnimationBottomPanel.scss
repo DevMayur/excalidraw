@@ -1,0 +1,269 @@
+.animation-bottom-panel {
+  position: fixed;
+  bottom: 1rem;
+  left: 1rem;
+  right: 1rem;
+  height: 300px;
+  background: var(--color-surface-low);
+  border: 2px solid var(--color-border);
+  border-radius: 16px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  transition: all 0.3s ease;
+  box-shadow: 0 -6px 20px rgba(0, 0, 0, 0.15);
+  backdrop-filter: blur(10px);
+
+  &--hidden {
+    height: 0;
+    overflow: hidden;
+    border: none;
+    box-shadow: none;
+  }
+
+  &--collapsed {
+    height: 60px;
+  }
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.75rem 1rem;
+    background: linear-gradient(180deg, var(--color-surface-high) 0%, var(--color-surface-low) 100%);
+    border-bottom: 2px solid var(--color-border);
+    border-radius: 16px 16px 0 0;
+    min-height: 60px;
+    flex-shrink: 0;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  &__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: var(--color-text-primary);
+
+    .panel-icon {
+      font-size: 1.2rem;
+    }
+
+    .panel-title {
+      font-size: 1rem;
+    }
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+
+    .quick-controls {
+      display: flex;
+      gap: 0.5rem;
+
+      .play-btn,
+      .loop-btn {
+        min-width: 36px;
+        height: 36px;
+        border-radius: 6px;
+        border: 1px solid var(--color-border);
+        background: var(--color-surface-low);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.1rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: var(--color-surface-high);
+        }
+
+        &.playing {
+          background: var(--color-primary);
+          color: white;
+        }
+
+        &.active {
+          background: var(--color-primary);
+          color: white;
+        }
+      }
+    }
+
+    .time-display {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-family-monospace);
+      font-size: 0.9rem;
+      color: var(--color-text-primary);
+      background: var(--color-surface-low);
+      padding: 0.5rem 0.75rem;
+      border-radius: 6px;
+      border: 1px solid var(--color-border);
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+      .current-time {
+        color: var(--color-primary);
+        font-weight: 600;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      }
+
+      .time-separator {
+        color: var(--color-text-secondary);
+        font-weight: 300;
+      }
+
+      .total-time {
+        color: var(--color-text-secondary);
+        font-weight: 500;
+      }
+    }
+
+    .panel-controls {
+      display: flex;
+      gap: 0.5rem;
+
+      .collapse-btn,
+      .close-btn {
+        min-width: 32px;
+        height: 32px;
+        border-radius: 4px;
+        border: 1px solid var(--color-border);
+        background: var(--color-surface-low);
+        color: var(--color-text-primary);
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.9rem;
+        transition: all 0.2s ease;
+
+        &:hover {
+          background: var(--color-surface-high);
+        }
+      }
+
+      .close-btn:hover {
+        background: var(--color-danger);
+        color: white;
+        border-color: var(--color-danger);
+      }
+    }
+  }
+
+  &__content {
+    flex: 1;
+    overflow: hidden;
+    padding: 1rem;
+  }
+
+  // Hidden state toggle button
+  &--hidden {
+    .animation-toggle-btn {
+      position: fixed;
+      bottom: 1rem;
+      right: 1rem;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--color-primary);
+      color: white;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: all 0.3s ease;
+      z-index: 1001;
+
+      &:hover {
+        background: var(--color-primary-darker);
+        transform: scale(1.1);
+      }
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+}
+
+// Responsive adjustments
+@media (max-width: 768px) {
+  .animation-bottom-panel {
+    bottom: 0.5rem;
+    left: 0.5rem;
+    right: 0.5rem;
+    height: 250px;
+
+    &--collapsed {
+      height: 50px;
+    }
+
+    &__header {
+      padding: 0.5rem;
+      min-height: 50px;
+    }
+
+    &__title {
+      .panel-title {
+        display: none;
+      }
+    }
+
+    &__controls {
+      gap: 0.5rem;
+
+      .quick-controls {
+        gap: 0.25rem;
+
+        .play-btn,
+        .loop-btn {
+          min-width: 32px;
+          height: 32px;
+          font-size: 1rem;
+        }
+      }
+
+      .time-display {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.5rem;
+      }
+
+      .panel-controls {
+        gap: 0.25rem;
+
+        .collapse-btn,
+        .close-btn {
+          min-width: 28px;
+          height: 28px;
+          font-size: 0.8rem;
+        }
+      }
+    }
+
+    &__content {
+      padding: 0.5rem;
+    }
+  }
+}
+
+// Dark theme adjustments
+[data-theme="dark"] {
+  .animation-bottom-panel {
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.3);
+
+    &--hidden {
+      .animation-toggle-btn {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+      }
+    }
+  }
+}

@@ -393,3 +393,43 @@ export const LiveCollaborationTrigger = ({
 };
 
 LiveCollaborationTrigger.displayName = "LiveCollaborationTrigger";
+
+export const AnimationTimeline = () => {
+  console.log("🎬 AnimationTimeline component rendering!");
+  
+  try {
+    const { t } = useI18n();
+    const setAppState = useExcalidrawSetAppState();
+    const appState = useUIAppState();
+
+    const handleSelect = () => {
+      console.log("🎬 Timeline clicked!");
+      setAppState({
+        openDialog: appState.openDialog?.name === "animation" 
+          ? null 
+          : { name: "animation" },
+      });
+    };
+
+    return (
+      <DropdownMenuItem
+        onSelect={handleSelect}
+        data-testid="animation-timeline-button"
+        aria-label={t("animation.timeline")}
+      >
+        {t("animation.timeline")}
+      </DropdownMenuItem>
+    );
+  } catch (error) {
+    console.error("🎬 AnimationTimeline error:", error);
+    return (
+      <DropdownMenuItem
+        onSelect={() => alert("Timeline Error!")}
+        data-testid="animation-timeline-button"
+      >
+        🎬 Timeline (Error)
+      </DropdownMenuItem>
+    );
+  }
+};
+AnimationTimeline.displayName = "AnimationTimeline";
