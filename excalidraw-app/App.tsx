@@ -35,6 +35,8 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { loadFromBlob } from "@excalidraw/excalidraw/data/blob";
 import { useCallbackRefState } from "@excalidraw/excalidraw/hooks/useCallbackRefState";
 import { t } from "@excalidraw/excalidraw/i18n";
+import { AuthProvider } from "./contexts/AuthContext";
+import { AuthDebug } from "./components/AuthDebug";
 
 import {
   GithubIcon,
@@ -917,6 +919,80 @@ const ExcalidrawWrapper = () => {
               },
             },
             {
+              label: "Sign In",
+              category: DEFAULT_CATEGORIES.app,
+              predicate: () => {
+                // Only show if not authenticated
+                try {
+                  const { useAuth } = require('./contexts/AuthContext');
+                  const { isAuthenticated } = useAuth();
+                  return !isAuthenticated;
+                } catch {
+                  return true; // Show if auth context not available
+                }
+              },
+              keywords: [
+                "login",
+                "account",
+                "auth",
+                "signin",
+                "user",
+                "profile",
+              ],
+              perform: () => {
+                // This will be handled by the action component
+              },
+            },
+            {
+              label: "Profile",
+              category: DEFAULT_CATEGORIES.app,
+              predicate: () => {
+                // Only show if authenticated
+                try {
+                  const { useAuth } = require('./contexts/AuthContext');
+                  const { isAuthenticated } = useAuth();
+                  return isAuthenticated;
+                } catch {
+                  return false; // Hide if auth context not available
+                }
+              },
+              keywords: [
+                "profile",
+                "account",
+                "user",
+                "settings",
+                "preferences",
+              ],
+              perform: () => {
+                // This will be handled by the action component
+              },
+            },
+            {
+              label: "Save to Cloud",
+              category: DEFAULT_CATEGORIES.app,
+              predicate: () => {
+                // Only show if authenticated and premium
+                try {
+                  const { useAuth } = require('./contexts/AuthContext');
+                  const { isAuthenticated, isPremium } = useAuth();
+                  return isAuthenticated && isPremium;
+                } catch {
+                  return false; // Hide if auth context not available
+                }
+              },
+              keywords: [
+                "cloud",
+                "save",
+                "storage",
+                "backup",
+                "sync",
+                "premium",
+              ],
+              perform: () => {
+                // This will be handled by the action component
+              },
+            },
+            {
               label: "GitHub",
               icon: GithubIcon,
               category: DEFAULT_CATEGORIES.links,
@@ -1038,9 +1114,12 @@ const ExcalidrawApp = () => {
 
   return (
     <TopErrorBoundary>
-      <Provider store={appJotaiStore}>
-        <ExcalidrawWrapper />
-      </Provider>
+      <AuthProvider>
+        <Provider store={appJotaiStore}>
+          <ExcalidrawWrapper />
+          <AuthDebug />
+        </Provider>
+      </AuthProvider>
     </TopErrorBoundary>
   );
 };

@@ -93,3 +93,15 @@ export { actionToggleLinearEditor } from "./actionLinearEditor";
 export { actionToggleSearchMenu } from "./actionToggleSearchMenu";
 
 export { actionToggleCropEditor } from "./actionCropEditor";
+
+export {
+  actionSignIn,
+  actionUserProfile,
+  actionSignOut,
+  actionCloudSave,
+} from "./actionAuth";
+
+export {
+  actionPremiumExport,
+  actionPremiumCollaboration,
+} from "./actionPremiumExport";
