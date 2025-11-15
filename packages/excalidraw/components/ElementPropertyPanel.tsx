@@ -149,161 +149,179 @@ export const ElementPropertyPanel: React.FC = () => {
           </div>
         </div>
         
-        <Stack.Col gap={4}>
-          {/* Position Controls */}
-          <div className="property-group">
-            <h4>{t("elementProperties.position")}</h4>
-            <div className="position-controls">
-              <div className="property-control">
-                <label>X:</label>
-                <input
-                  type="number"
-                  value={Math.round(inputPosition.x)}
-                  onChange={(e) => handlePositionChange('x', parseFloat(e.target.value) || 0)}
-                  min={-10000}
-                  max={10000}
-                  step={1}
-                  className="number-input"
-                />
-              </div>
-              <div className="property-control">
-                <label>Y:</label>
-                <input
-                  type="number"
-                  value={Math.round(inputPosition.y)}
-                  onChange={(e) => handlePositionChange('y', parseFloat(e.target.value) || 0)}
-                  min={-10000}
-                  max={10000}
-                  step={1}
-                  className="number-input"
-                />
-              </div>
-            </div>
-          </div>
+        <div className="properties-table-container">
+          <table className="properties-table">
+            <tbody>
+              {/* Position Row */}
+              <tr className="property-row">
+                <td className="property-label">{t("elementProperties.position")}</td>
+                <td className="property-controls">
+                  <div className="position-controls">
+                    <div className="property-control">
+                      <label>X:</label>
+                      <input
+                        type="number"
+                        value={Math.round(inputPosition.x)}
+                        onChange={(e) => handlePositionChange('x', parseFloat(e.target.value) || 0)}
+                        min={-10000}
+                        max={10000}
+                        step={1}
+                        className="number-input"
+                      />
+                    </div>
+                    <div className="property-control">
+                      <label>Y:</label>
+                      <input
+                        type="number"
+                        value={Math.round(inputPosition.y)}
+                        onChange={(e) => handlePositionChange('y', parseFloat(e.target.value) || 0)}
+                        min={-10000}
+                        max={10000}
+                        step={1}
+                        className="number-input"
+                      />
+                    </div>
+                  </div>
+                </td>
+              </tr>
 
-          {/* Size Controls */}
-          <div className="property-group">
-            <h4>{t("elementProperties.size")}</h4>
-            <div className="size-controls">
-              <div className="property-control">
-                <label>W:</label>
-                <input
-                  type="number"
-                  value={Math.round(inputSize.width)}
-                  onChange={(e) => handleSizeChange('width', parseFloat(e.target.value) || 0)}
-                  min={1}
-                  max={10000}
-                  step={1}
-                  className="number-input"
-                />
-              </div>
-              <div className="property-control">
-                <label>H:</label>
-                <input
-                  type="number"
-                  value={Math.round(inputSize.height)}
-                  onChange={(e) => handleSizeChange('height', parseFloat(e.target.value) || 0)}
-                  min={1}
-                  max={10000}
-                  step={1}
-                  className="number-input"
-                />
-              </div>
-            </div>
-          </div>
+              {/* Size Row */}
+              <tr className="property-row">
+                <td className="property-label">{t("elementProperties.size")}</td>
+                <td className="property-controls">
+                  <div className="size-controls">
+                    <div className="property-control">
+                      <label>W:</label>
+                      <input
+                        type="number"
+                        value={Math.round(inputSize.width)}
+                        onChange={(e) => handleSizeChange('width', parseFloat(e.target.value) || 0)}
+                        min={1}
+                        max={10000}
+                        step={1}
+                        className="number-input"
+                      />
+                    </div>
+                    <div className="property-control">
+                      <label>H:</label>
+                      <input
+                        type="number"
+                        value={Math.round(inputSize.height)}
+                        onChange={(e) => handleSizeChange('height', parseFloat(e.target.value) || 0)}
+                        min={1}
+                        max={10000}
+                        step={1}
+                        className="number-input"
+                      />
+                    </div>
+                  </div>
+                </td>
+              </tr>
 
-          {/* Rotation Control */}
-          <div className="property-group">
-            <h4>{t("elementProperties.rotation")}</h4>
-            <div className="rotation-control">
-              <input
-                type="number"
-                value={Math.round(inputRotation)}
-                onChange={(e) => handleRotationChange(parseFloat(e.target.value) || 0)}
-                min={-360}
-                max={360}
-                step={1}
-                className="number-input"
-                placeholder="°"
-              />
-              <span className="degree-symbol">°</span>
-            </div>
-          </div>
+              {/* Rotation Row */}
+              <tr className="property-row">
+                <td className="property-label">{t("elementProperties.rotation")}</td>
+                <td className="property-controls">
+                  <div className="rotation-control">
+                    <input
+                      type="number"
+                      value={Math.round(inputRotation)}
+                      onChange={(e) => handleRotationChange(parseFloat(e.target.value) || 0)}
+                      min={-360}
+                      max={360}
+                      step={1}
+                      className="number-input"
+                      placeholder="°"
+                    />
+                    <span className="degree-symbol">°</span>
+                  </div>
+                </td>
+              </tr>
 
-          {/* Opacity Control */}
-          <div className="property-group">
-            <h4>{t("elementProperties.opacity")}</h4>
-            <div className="opacity-control">
-              <input
-                type="range"
-                min={0}
-                max={100}
-                step={1}
-                value={inputOpacity}
-                onChange={(e) => handleOpacityChange(parseFloat(e.target.value))}
-                className="slider-input"
-              />
-              <span className="opacity-value">{Math.round(inputOpacity)}%</span>
-            </div>
-          </div>
+              {/* Opacity Row */}
+              <tr className="property-row">
+                <td className="property-label">{t("elementProperties.opacity")}</td>
+                <td className="property-controls">
+                  <div className="opacity-control">
+                    <input
+                      type="range"
+                      min={0}
+                      max={100}
+                      step={1}
+                      value={inputOpacity}
+                      onChange={(e) => handleOpacityChange(parseFloat(e.target.value))}
+                      className="slider-input"
+                    />
+                    <span className="opacity-value">{Math.round(inputOpacity)}%</span>
+                  </div>
+                </td>
+              </tr>
 
-          {/* Stroke Color Control */}
-          <div className="property-group">
-            <h4>{t("elementProperties.strokeColor")}</h4>
-            <div className="color-control">
-              <input
-                type="color"
-                value={inputStrokeColor}
-                onChange={(e) => handleStrokeColorChange(e.target.value)}
-                className="color-input"
-              />
-              <input
-                type="text"
-                value={inputStrokeColor}
-                onChange={(e) => handleStrokeColorChange(e.target.value)}
-                className="color-text-input"
-                placeholder="#000000"
-              />
-            </div>
-          </div>
+              {/* Stroke Color Row */}
+              <tr className="property-row">
+                <td className="property-label">{t("elementProperties.strokeColor")}</td>
+                <td className="property-controls">
+                  <div className="color-control">
+                    <input
+                      type="color"
+                      value={inputStrokeColor}
+                      onChange={(e) => handleStrokeColorChange(e.target.value)}
+                      className="color-input"
+                    />
+                    <input
+                      type="text"
+                      value={inputStrokeColor}
+                      onChange={(e) => handleStrokeColorChange(e.target.value)}
+                      className="color-text-input"
+                      placeholder="#000000"
+                    />
+                  </div>
+                </td>
+              </tr>
 
-          {/* Background Color Control */}
-          <div className="property-group">
-            <h4>{t("elementProperties.backgroundColor")}</h4>
-            <div className="color-control">
-              <input
-                type="color"
-                value={inputBackgroundColor}
-                onChange={(e) => handleBackgroundColorChange(e.target.value)}
-                className="color-input"
-              />
-              <input
-                type="text"
-                value={inputBackgroundColor}
-                onChange={(e) => handleBackgroundColorChange(e.target.value)}
-                className="color-text-input"
-                placeholder="transparent"
-              />
-            </div>
-          </div>
+              {/* Background Color Row */}
+              <tr className="property-row">
+                <td className="property-label">{t("elementProperties.backgroundColor")}</td>
+                <td className="property-controls">
+                  <div className="color-control">
+                    <input
+                      type="color"
+                      value={inputBackgroundColor}
+                      onChange={(e) => handleBackgroundColorChange(e.target.value)}
+                      className="color-input"
+                    />
+                    <input
+                      type="text"
+                      value={inputBackgroundColor}
+                      onChange={(e) => handleBackgroundColorChange(e.target.value)}
+                      className="color-text-input"
+                      placeholder="transparent"
+                    />
+                  </div>
+                </td>
+              </tr>
 
-          {/* Stroke Width Control */}
-          <div className="property-group">
-            <h4>{t("elementProperties.strokeWidth")}</h4>
-            <div className="stroke-width-control">
-              <input
-                type="range"
-                min={1}
-                max={20}
-                step={1}
-                value={inputStrokeWidth}
-                onChange={(e) => handleStrokeWidthChange(parseFloat(e.target.value))}
-                className="slider-input"
-              />
-              <span className="stroke-width-value">{inputStrokeWidth}px</span>
-            </div>
-          </div>
-        </Stack.Col>
+              {/* Stroke Width Row */}
+              <tr className="property-row">
+                <td className="property-label">{t("elementProperties.strokeWidth")}</td>
+                <td className="property-controls">
+                  <div className="stroke-width-control">
+                    <input
+                      type="range"
+                      min={1}
+                      max={20}
+                      step={1}
+                      value={inputStrokeWidth}
+                      onChange={(e) => handleStrokeWidthChange(parseFloat(e.target.value))}
+                      className="slider-input"
+                    />
+                    <span className="stroke-width-value">{inputStrokeWidth}px</span>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </Island>
   );
